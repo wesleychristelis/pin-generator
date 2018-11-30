@@ -84,11 +84,9 @@ namespace PinService.Tests
         public void ReturnValidPin()
         {
             // Arrange
-            Func<string, bool> func1 = _randomPinService.HasConsecutiveSequence;
-            Func<string, bool> func2 = _randomPinService.HasIncrementalSequence;
 
             // Act: We can mock the Func<> params
-            var result = _randomPinService.GeneratePin(func1, func2);
+            var result = _randomPinService.GeneratePin(_randomPinService.HasConsecutiveSequence, _randomPinService.HasIncrementalSequence);
 
             // Assert
             Assert.IsNotNull(result, "We must have a pin");
