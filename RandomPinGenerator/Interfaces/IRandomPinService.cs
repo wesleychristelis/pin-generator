@@ -4,7 +4,7 @@ namespace PinGenerator.Interfaces
 {
     public interface IRandomPinService
     {
-        string GeneratePin(Func<string, bool> hasConsecutiveSequence, Func<string, bool> hasIncrementalSequence);
+        string GeneratePin();
         bool HasConsecutiveSequence(string pin);
         bool HasIncrementalSequence(string pin);
         bool HasDecrementalSequence(string pin);
