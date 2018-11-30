@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PinGenerator.Interfaces;
 using PinGenerator.Service;
 using System;
 
@@ -7,8 +8,8 @@ namespace PinService.Tests
     [TestClass]
     public class RandomSpinService_Should
     {
-        // Chnage to interface
-        private RandomPinService _randomPinService;
+        // Change to interface
+        private IRandomPinService _randomPinService;
 
         [TestInitialize]
         public void TestStartUp()
