@@ -75,7 +75,7 @@ namespace PinService.Tests
             // Arrange
 
             // Act
-            var hasConsecutiveDigits = _randomPinService.HasIncrementalSequence(pin);
+            var hasConsecutiveDigits = _randomPinService.HasDecrementalSequence(pin);
 
             // Assert
             Assert.IsTrue(hasConsecutiveDigits, "Pin has decremental values");
