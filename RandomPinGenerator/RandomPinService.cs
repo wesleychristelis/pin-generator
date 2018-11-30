@@ -55,6 +55,8 @@ namespace PinGenerator.Service
                     // If current character + 1 matches with next 
                     if ((currentIndexvalue + 1) == (nextIndexValue))
                         return true;
+
+                    // Do we need worry about Decremental values i.e. 5432 ???
                 }
             }
             return false;
