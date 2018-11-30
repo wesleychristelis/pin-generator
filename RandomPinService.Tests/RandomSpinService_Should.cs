@@ -65,10 +65,27 @@ namespace PinService.Tests
         }
 
         [DataTestMethod]
+        [DataRow("4321")] // all increment
+        [DataRow("5321")] // first 3 decrement
+        [DataRow("5821")] // first 2 decrement
+        [DataRow("5431")] // last 3 decrement
+        [DataRow("5471")] // last 2 decrement
+        public void ReturnTrueWithDecrementalSequencesInPin(string pin)
+        {
+            // Arrange
+
+            // Act
+            var hasConsecutiveDigits = _randomPinService.HasIncrementalSequence(pin);
+
+            // Assert
+            Assert.IsTrue(hasConsecutiveDigits, "Pin has decremental values");
+        }
+
+        [DataTestMethod]
         [DataRow("9740")] // no incremental
         [DataRow("0592")] 
-        [DataRow("1058")] 
-        [DataRow("2436")] 
+        [DataRow("1958")] 
+        [DataRow("2409")] 
         [DataRow("9047")] 
         public void ReturnFalseWithNoIncrementalSequencesInPin(string pin)
         {
