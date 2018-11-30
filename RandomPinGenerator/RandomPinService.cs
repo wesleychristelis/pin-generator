@@ -16,13 +16,14 @@ namespace PinGenerator.Service
             _random = new Random();
         }
 
-        public string GeneratePin(Func<string, bool> hasConsecutiveSequence, Func<string, bool> hasIncrementalSequence)
+        // We could possible add arrays of func to run against
+        public string GeneratePin()
         {
             var pin = _random.Next(0000, 9999).ToString("D4");
 
-            if (hasConsecutiveSequence(pin) || hasIncrementalSequence(pin))
+            if (HasConsecutiveSequence(pin) || HasIncrementalSequence(pin))
             {
-                return GeneratePin(hasConsecutiveSequence, hasIncrementalSequence);
+                return GeneratePin();
             }
             else
             {
@@ -40,7 +41,6 @@ namespace PinGenerator.Service
             }
             return false;
         }
-
 
         // DRY Issues here "HasDecrementalSequence" and "HasIncrementalSequence", maybe refactor 
         public bool HasDecrementalSequence(string pin)

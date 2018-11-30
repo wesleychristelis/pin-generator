@@ -104,7 +104,7 @@ namespace PinService.Tests
             // Arrange
 
             // Act: We can mock the Func<> params
-            var result = _randomPinService.GeneratePin(_randomPinService.HasConsecutiveSequence, _randomPinService.HasIncrementalSequence);
+            var result = _randomPinService.GeneratePin();
 
             // Assert
             Assert.IsNotNull(result, "We must have a pin");
