@@ -41,6 +41,27 @@ namespace PinGenerator.Service
             return false;
         }
 
+
+        // DRY Issues here "HasDecrementalSequence" and "HasIncrementalSequence", maybe refactor 
+        public bool HasDecrementalSequence(string pin)
+        {
+            for (int i = 0; i < pin.Length; i++)
+            {
+                if (i < pin.Length - 1)
+                {
+                    // We trust the random pin generator to always give a value numeric
+                    // Convert char to int
+                    int currentIndexvalue = (int)Char.GetNumericValue(pin[i]);
+                    int nextIndexValue = (int)Char.GetNumericValue(pin[i + 1]);
+
+                    // Decrements: If current character - 1 matches with next 
+                    if ((currentIndexvalue - 1) == (nextIndexValue))
+                        return true;
+                }
+            }
+            return false;
+        }
+
         public bool HasIncrementalSequence(string pin)
         {
             for (int i = 0; i < pin.Length; i++)
@@ -55,13 +76,6 @@ namespace PinGenerator.Service
                     // If current character + 1 matches with next
                     // Increments
                     if ((currentIndexvalue + 1) == (nextIndexValue))
-                        return true;
-
-                    // Do we need worry about Decremental values i.e. 5432 ???
-                    // Will put it here for now,  Seperation Concerns here 
-
-                    // Decrements: If current character - 1 matches with next 
-                    if ((currentIndexvalue - 1) == (nextIndexValue))
                         return true;
                 }
             }

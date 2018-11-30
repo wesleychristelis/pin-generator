@@ -7,5 +7,6 @@ namespace PinGenerator.Interfaces
         string GeneratePin(Func<string, bool> hasConsecutiveSequence, Func<string, bool> hasIncrementalSequence);
         bool HasConsecutiveSequence(string pin);
         bool HasIncrementalSequence(string pin);
+        bool HasDecrementalSequence(string pin);
     }
 }
