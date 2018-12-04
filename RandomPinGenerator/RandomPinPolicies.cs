@@ -68,8 +68,8 @@ namespace Random.PinGenenrator.Policies
         {
             var policies = GetPolicies();
 
-            // if we have no policies to assert , then retuen false. 
-            // 
+            // If we have no policies to assert , then return false.
+            // We have no contraints on the numbers generated
             if (policies == null || !policies.Any())
             {
                 return false;
