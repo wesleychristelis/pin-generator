@@ -23,6 +23,7 @@ namespace Random.PinGenerator
             for (int i = 0; i < pin.Length; i++)
             {
                 // If current character matches with next 
+                // the pin increments
                 if (i < pin.Length - 1 && pin[i] == pin[i + 1])
                     return true;
             }
@@ -61,7 +62,7 @@ namespace Random.PinGenerator
                     int nextIndexValue = (int)Char.GetNumericValue(pin[i + 1]);
 
                     // If current character + 1 matches with next
-                    // Increments
+                    // the number Increments
                     if ((currentIndexvalue + 1) == (nextIndexValue))
                         return true;
                 }
