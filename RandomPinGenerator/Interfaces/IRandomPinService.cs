@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Random.PinGenerator.Interfaces
+﻿namespace Random.PinGenerator.Interfaces
 {
     public interface IRandomPinService
     {

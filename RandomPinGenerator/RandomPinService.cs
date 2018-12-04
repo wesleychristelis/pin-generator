@@ -1,24 +1,22 @@
 ﻿using Random.PinGenerator.Interfaces;
+using Random.PinPolicies;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace Random.PinGenerator.Service
 {
     public class RandomPinService : IRandomPinService
     {
         private readonly System.Random _random = new System.Random();
-        private IPinPolicies _policies;
+        private IRandomPinPolicies _policies;
 
         public RandomPinService()
         {
-            _policies = new PinPolicies();
+            _policies = new RandomPinPolicies();
         }
 
         // No DI bootstrapped as yet
-        public RandomPinService(IPinPolicies policies)
+        public RandomPinService(IRandomPinPolicies policies)
         {
             _policies = policies;
         }

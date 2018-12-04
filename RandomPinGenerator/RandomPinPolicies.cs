@@ -2,15 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace Random.PinGenerator
+namespace Random.PinPolicies
 {
-    public class PinPolicies : IPinPolicies
+    public class RandomPinPolicies : IRandomPinPolicies
     {
-        private IList<Func<string, bool>> GetPolicies()
+        public IList<Func<string, bool>> GetPolicies()
         {
-            return  new List<Func<string, bool>>
+            return new List<Func<string, bool>>
             {
                 HasIncrementalSequence,
                 HasConsecutiveSequence,
@@ -89,15 +88,6 @@ namespace Random.PinGenerator
             }
 
             return false;
-        }
-
-        IList<Func<string, bool>> IPinPolicies.GetPolicies()
-        {
-            return new List<Func<string, bool>>
-            {
-                HasConsecutiveSequence,
-                HasIncrementalSequence
-            };
         }
     }
 }

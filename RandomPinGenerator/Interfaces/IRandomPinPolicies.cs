@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Random.PinGenerator.Interfaces
 {
-    public interface IPinPolicies
+    public interface IRandomPinPolicies
     {
         bool HasConsecutiveSequence(string pin);
         bool HasIncrementalSequence(string pin);

@@ -1,18 +1,18 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Random.PinGenerator;
 using Random.PinGenerator.Interfaces;
+using Random.PinPolicies;
 
 namespace PinPoliciesUnitTests
 {
     [TestClass]
     public class PinPolicies_Should
     {
-        private IPinPolicies _pinPolicies;
+        private IRandomPinPolicies _pinPolicies;
 
         [TestInitialize]
         public void TestStartUp()
         {
-            _pinPolicies = new PinPolicies();
+            _pinPolicies = new RandomPinPolicies();
         }
 
         [DataTestMethod]
