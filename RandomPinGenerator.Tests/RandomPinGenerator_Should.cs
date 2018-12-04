@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PinGenerator.Service;
+using Random.PinGenerator.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,13 +22,40 @@ namespace RandomPinGeneratorUnitTests
         {
             // Arrange
             var batchSize = 1000;
+            var pinLength = 4;
 
             // Act
-            var pinHash = _randomPinGenerator.GetPins(batchSize);
+            var pinHash = _randomPinGenerator.GetPins(batchSize, pinLength);
 
             // Assert
             Assert.AreEqual(batchSize, pinHash.Count());
             Assert.IsInstanceOfType(pinHash, typeof(HashSet<string>));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void BatchSizeShouldNotExceedMaxCombinationsForPin()
+        {
+            // Arrange
+            // Arrange
+            var batchSize = 100000;
+            var pinLength = 4;
+
+            // Act: We can mock the Func<> params
+            var result = _randomPinGenerator.GetPins(batchSize, pinLength);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void BatchSizeInBoundsOfMaxCombinationsForPin()
+        {
+            // Arrange
+            // Arrange
+            var batchSize = 10000;
+            var pinLength = 4;
+
+            // Act: We can mock the Func<> params
+            var result = _randomPinGenerator.GetPins(batchSize, pinLength);
         }
     }
 }
