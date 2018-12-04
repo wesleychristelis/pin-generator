@@ -1,13 +1,14 @@
 ﻿using Random.PinGenerator.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Random.PinGenerator
 {
     public class PinPolicies : IPinPolicies
     {
-        public IList<Func<string, bool>> GetPolicies()
+        private IList<Func<string, bool>> GetPolicies()
         {
             return  new List<Func<string, bool>>
             {
@@ -66,6 +67,29 @@ namespace Random.PinGenerator
                 }
             }
             return false;
+        }
+
+        public bool Validate(string pin)
+        {
+            var policies = GetPolicies();
+
+            // if we have no policies to assert , then truen true
+            if (policies == null || !policies.Any())
+            {
+                return true;
+            }
+
+            return policies.All(policy => policy(pin));
+
+        }
+
+        IList<Func<string, bool>> IPinPolicies.GetPolicies()
+        {
+            return new List<Func<string, bool>>
+            {
+                HasConsecutiveSequence,
+                HasIncrementalSequence
+            };
         }
     }
 }

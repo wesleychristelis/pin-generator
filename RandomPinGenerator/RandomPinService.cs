@@ -31,7 +31,7 @@ namespace Random.PinGenerator.Service
             //TODO: Customise pin lentgh
             var pin = _random.Next(0000, 9999).ToString($"D{pinLength}"); // we can make this configurable TODO: Investigate another approach
 
-            if (_policies.HasConsecutiveSequence(pin) || _policies.HasIncrementalSequence(pin))
+            if (_policies.Validate(pin))
             {
                 return GeneratePin(pinLength);
             }

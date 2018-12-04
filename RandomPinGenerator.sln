@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RandomPinService.Tests", "R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PinPolicies.Tests", "PinPolicies.Tests\PinPolicies.Tests.csproj", "{4BF46015-9F07-46B7-B3DF-1285FAFC3009}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3C41DD99-0777-4735-96DB-E00DA60C77C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6657902E-9041-42E0-9953-166F0FB2AB0E} = {3C41DD99-0777-4735-96DB-E00DA60C77C7}
+		{42C214AC-55EC-4E0F-9E7E-8B71C6525D5B} = {3C41DD99-0777-4735-96DB-E00DA60C77C7}
+		{4BF46015-9F07-46B7-B3DF-1285FAFC3009} = {3C41DD99-0777-4735-96DB-E00DA60C77C7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B7F64F8C-E588-434B-B3C4-2357C69B5948}

@@ -10,5 +10,6 @@ namespace Random.PinGenerator.Interfaces
         bool HasIncrementalSequence(string pin);
         bool HasDecrementalSequence(string pin);
         IList<Func<string, bool>> GetPolicies();
+        bool Validate(string pin);
     }
 }

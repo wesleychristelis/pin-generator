@@ -22,6 +22,7 @@ namespace Random.PinGenerator.Service
 
         public HashSet<string> GetPins(int batchSize, int pinLength)
         {
+            // Must not exceed max combinations for the length of the pin
             if (batchSize < _randomPinService.MaxPinCombinations(pinLength))
             {
                 var pinHashset = new HashSet<string>();
