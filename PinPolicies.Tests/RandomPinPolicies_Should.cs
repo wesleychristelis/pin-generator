@@ -1,11 +1,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Random.PinGenerator.Interfaces;
-using Random.PinPolicies;
+using Random.PinGenenrator.Policies;
 
-namespace PinPoliciesUnitTests
+namespace RandomPinPoliciesUnitTests
 {
     [TestClass]
-    public class PinPolicies_Should
+    public class RandomPinPolicies_Should
     {
         private IRandomPinPolicies _pinPolicies;
 
@@ -15,6 +15,7 @@ namespace PinPoliciesUnitTests
             _pinPolicies = new RandomPinPolicies();
         }
 
+        #region Consecutive sequence checks
         [DataTestMethod]
         [DataRow("1135")] // first 2 consecutive
         [DataRow("1228")] // middle 2 consecutive
@@ -43,8 +44,10 @@ namespace PinPoliciesUnitTests
 
             // Assert
             Assert.IsFalse(hasConsecutiveDigits, "Pin has no consecutive values");
-        }
+        } 
+        #endregion
 
+        #region Incremental sequence checks
         [DataTestMethod]
         [DataRow("1234")] // all increment
         [DataRow("1235")] // first 3 increment
@@ -63,23 +66,6 @@ namespace PinPoliciesUnitTests
         }
 
         [DataTestMethod]
-        [DataRow("4321")] // all increment
-        [DataRow("5321")] // first 3 decrement
-        [DataRow("5821")] // first 2 decrement
-        [DataRow("5431")] // last 3 decrement
-        [DataRow("5471")] // last 2 decrement
-        public void ReturnTrueWithDecrementalSequencesInPin(string pin)
-        {
-            // Arrange
-
-            // Act
-            var hasConsecutiveDigits = _pinPolicies.HasDecrementalSequence(pin);
-
-            // Assert
-            Assert.IsTrue(hasConsecutiveDigits, "Pin has decremental values");
-        }
-
-        [DataTestMethod]
         [DataRow("9740")] // no incremental
         [DataRow("0592")]
         [DataRow("1958")]
@@ -94,7 +80,10 @@ namespace PinPoliciesUnitTests
 
             // Assert
             Assert.IsFalse(hasConsecutiveDigits, "Pin has no incremental values");
-        }
+        } 
+        #endregion
+
+        #region Polcies
 
         [TestMethod]
         public void ReturnListOfValidationPolicies()
@@ -108,5 +97,6 @@ namespace PinPoliciesUnitTests
             Assert.AreEqual(2, policies.Count, "We currenlty have 2 policies");
         }
 
+        #endregion
     }
 }

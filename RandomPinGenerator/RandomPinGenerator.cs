@@ -9,17 +9,21 @@ namespace Random.PinGenerator.Service
     {
         private IRandomPinService _randomPinService;
 
+        #region Contructors
         public RandomPinGenerator()
         {
             _randomPinService = new RandomPinService();
         }
 
         // I have not bootstrapped a DI framework Yet so I will use the default ctor to bootstrap for now
-        public RandomPinGenerator(IRandomPinService randomService )
+        public RandomPinGenerator(IRandomPinService randomService)
         {
             _randomPinService = randomService;
         }
 
+        #endregion
+
+        #region Interface implmentations
         public HashSet<string> GetPins(int batchSize, int pinLength)
         {
             // Must not exceed max combinations for the length of the pin
@@ -32,10 +36,11 @@ namespace Random.PinGenerator.Service
                     pinHashset.Add(_randomPinService.GeneratePin(pinLength));
                 }
 
-                return pinHashset; 
+                return pinHashset;
             }
 
             throw new ArgumentOutOfRangeException("Batch size exceeds max combinations for pin length");
-        }
+        } 
+        #endregion
     }
 }

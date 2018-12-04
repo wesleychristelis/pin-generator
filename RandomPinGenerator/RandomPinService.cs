@@ -1,5 +1,5 @@
 ﻿using Random.PinGenerator.Interfaces;
-using Random.PinPolicies;
+using Random.PinGenenrator.Policies;
 using System;
 using System.Text;
 
@@ -7,9 +7,13 @@ namespace Random.PinGenerator.Service
 {
     public class RandomPinService : IRandomPinService
     {
+        #region Private
         private readonly System.Random _random = new System.Random();
         private IRandomPinPolicies _policies;
 
+        #endregion
+
+        #region Constructors
         public RandomPinService()
         {
             _policies = new RandomPinPolicies();
@@ -19,7 +23,8 @@ namespace Random.PinGenerator.Service
         public RandomPinService(IRandomPinPolicies policies)
         {
             _policies = policies;
-        }
+        } 
+        #endregion
 
         // We could possible add arrays of func to run against
         public string GeneratePin(int pinLength)
@@ -49,7 +54,7 @@ namespace Random.PinGenerator.Service
             return (int)Math.Pow(10, pinLength);
         }
 
-       private int GetMaxRangeForRandom(int pinLength)
+        private int GetMaxRangeForRandom(int pinLength)
         {
             var maxRangeString = new StringBuilder();
 

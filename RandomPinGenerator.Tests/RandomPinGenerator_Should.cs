@@ -18,7 +18,8 @@ namespace RandomPinGeneratorUnitTests
             _randomPinGenerator = new RandomPinGenerator();
         }
 
-        // Acceptance test
+        #region Acceptance Tests
+
         [TestMethod]
         public void ReturnBatchSizeOfPinsWithFourDigits()
         {
@@ -34,7 +35,6 @@ namespace RandomPinGeneratorUnitTests
             Assert.IsInstanceOfType(pinHash, typeof(HashSet<string>));
         }
 
-        // Acceptance test
         [TestMethod]
         public void ReturnBatchSizeOfPinsWithFiveDigits()
         {
@@ -48,7 +48,8 @@ namespace RandomPinGeneratorUnitTests
             // Assert
             Assert.AreEqual(batchSize, pinHash.Count());
             Assert.IsInstanceOfType(pinHash, typeof(HashSet<string>));
-        }
+        } 
+        #endregion
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]

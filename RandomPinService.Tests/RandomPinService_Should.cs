@@ -6,9 +6,8 @@ using System;
 namespace RandomPinServiceUnitTests
 {
     [TestClass]
-    public class RandomSpinService_Should
+    public class RandomPinService_Should
     {
-        // Change to interface
         private IRandomPinService _randomPinService;
 
         [TestInitialize]
