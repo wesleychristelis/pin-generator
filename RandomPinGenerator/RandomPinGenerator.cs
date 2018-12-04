@@ -1,35 +1,40 @@
-﻿using PinGenerator.Interfaces;
+﻿using Random.PinGenerator.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PinGenerator.Service
+namespace Random.PinGenerator.Service
 {
     public class RandomPinGenerator : IRandomPinGenerator
     {
-        private IRandomPinService _randomService;
+        private IRandomPinService _randomPinService;
 
         public RandomPinGenerator()
         {
-            _randomService = new RandomPinService();
+            _randomPinService = new RandomPinService();
         }
 
         // I have not bootstrapped a DI framework Yet so I will use the default ctor to bootstrap for now
         public RandomPinGenerator(IRandomPinService randomService )
         {
-            _randomService = randomService;
+            _randomPinService = randomService;
         }
 
-        public HashSet<string> GetPins(int batchSize)
+        public HashSet<string> GetPins(int batchSize, int pinLength)
         {
-            var pinHashset = new HashSet<string>();
-
-            while (pinHashset.Count() < batchSize)
+            if (batchSize < _randomPinService.MaxPinCombinations(pinLength))
             {
-                pinHashset.Add(_randomService.GeneratePin(_randomService.HasConsecutiveSequence, _randomService.HasIncrementalSequence));
+                var pinHashset = new HashSet<string>();
+
+                while (pinHashset.Count() < batchSize)
+                {
+                    pinHashset.Add(_randomPinService.GeneratePin(pinLength));
+                }
+
+                return pinHashset; 
             }
 
-            return pinHashset;
+            throw new ArgumentOutOfRangeException("Batch size exceeds max combinations for pin length");
         }
     }
 }

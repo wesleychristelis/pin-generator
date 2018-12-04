@@ -1,12 +1,10 @@
 ﻿using System;
 
-namespace PinGenerator.Interfaces
+namespace Random.PinGenerator.Interfaces
 {
     public interface IRandomPinService
     {
-        string GeneratePin();
-        bool HasConsecutiveSequence(string pin);
-        bool HasIncrementalSequence(string pin);
-        bool HasDecrementalSequence(string pin);
+        string GeneratePin(int pinLength);
+        int MaxPinCombinations(int pinLength);
     }
 }

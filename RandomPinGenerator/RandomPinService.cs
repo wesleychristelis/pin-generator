@@ -1,29 +1,39 @@
-﻿using PinGenerator.Interfaces;
+﻿using Random.PinGenerator.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace PinGenerator.Service
+namespace Random.PinGenerator.Service
 {
     public class RandomPinService : IRandomPinService
     {
-        private Random _random;
+        private System.Random _random;
+        private IPinPolicies _policies;
 
         public RandomPinService()
         {
-            _random = new Random();
+            _random = new System.Random();
+            _policies = new PinPolicies();
+        }
+
+        // No DI bootstrapped as yet
+        public RandomPinService(IPinPolicies policies)
+        {
+            _random = new System.Random();
+            _policies = policies;
         }
 
         // We could possible add arrays of func to run against
-        public string GeneratePin()
+        public string GeneratePin(int pinLength)
         {
-            var pin = _random.Next(0000, 9999).ToString("D4");
+            //TODO: Customise pin lentgh
+            var pin = _random.Next(0000, 9999).ToString($"D{pinLength}"); // we can make this configurable TODO: Investigate another approach
 
-            if (HasConsecutiveSequence(pin) || HasIncrementalSequence(pin))
+            if (_policies.HasConsecutiveSequence(pin) || _policies.HasIncrementalSequence(pin))
             {
-                return GeneratePin();
+                return GeneratePin(pinLength);
             }
             else
             {
@@ -31,55 +41,15 @@ namespace PinGenerator.Service
             }
         }
 
-        public bool HasConsecutiveSequence(string pin)
+        // Add max pin combinations
+        public int MaxPinCombinations(int pinLength)
         {
-            for (int i = 0; i < pin.Length; i++)
-            {
-                // If current character matches with next 
-                if (i < pin.Length - 1 && pin[i] == pin[i + 1])
-                    return true;
-            }
-            return false;
-        }
+            if (pinLength <= 0)
+                throw new ArgumentOutOfRangeException(nameof(pinLength));
 
-        // DRY Issues here "HasDecrementalSequence" and "HasIncrementalSequence", maybe refactor 
-        public bool HasDecrementalSequence(string pin)
-        {
-            for (int i = 0; i < pin.Length; i++)
-            {
-                if (i < pin.Length - 1)
-                {
-                    // We trust the random pin generator to always give a value numeric
-                    // Convert char to int
-                    int currentIndexvalue = (int)Char.GetNumericValue(pin[i]);
-                    int nextIndexValue = (int)Char.GetNumericValue(pin[i + 1]);
+            var x = (int)Math.Pow(10, pinLength);
 
-                    // Decrements: If current character - 1 matches with next 
-                    if ((currentIndexvalue - 1) == (nextIndexValue))
-                        return true;
-                }
-            }
-            return false;
-        }
-
-        public bool HasIncrementalSequence(string pin)
-        {
-            for (int i = 0; i < pin.Length; i++)
-            {
-                if (i < pin.Length - 1)
-                {
-                    // We trust the random pin generator to always give a value numeric
-                    // Convert char to int
-                    int currentIndexvalue = (int)Char.GetNumericValue(pin[i]);
-                    int nextIndexValue = (int)Char.GetNumericValue(pin[i + 1]);
-
-                    // If current character + 1 matches with next
-                    // Increments
-                    if ((currentIndexvalue + 1) == (nextIndexValue))
-                        return true;
-                }
-            }
-            return false;
+            return (int)Math.Pow(10, pinLength);
         }
     }
 }
