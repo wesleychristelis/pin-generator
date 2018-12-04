@@ -8,12 +8,14 @@ namespace Random.PinGenerator.Service
     public class RandomPinService : IRandomPinService
     {
         #region Private
+
         private readonly System.Random _random = new System.Random();
         private IRandomPinPolicies _policies;
 
         #endregion
 
         #region Constructors
+
         public RandomPinService()
         {
             _policies = new RandomPinPolicies();
@@ -23,8 +25,11 @@ namespace Random.PinGenerator.Service
         public RandomPinService(IRandomPinPolicies policies)
         {
             _policies = policies;
-        } 
+        }
+
         #endregion
+
+        #region Interface implmentations
 
         // We could possible add arrays of func to run against
         public string GeneratePin(int pinLength)
@@ -35,7 +40,7 @@ namespace Random.PinGenerator.Service
             {
                 // Risk of Recursiveness, the larger the batch size the longer it can take as more unique pins will be present as the set grows, 
                 // as a result we will be recursing more often
-                return GeneratePin(pinLength); 
+                return GeneratePin(pinLength);
             }
             else
             {
@@ -52,7 +57,9 @@ namespace Random.PinGenerator.Service
             var x = (int)Math.Pow(10, pinLength);
 
             return (int)Math.Pow(10, pinLength);
-        }
+        } 
+
+        #endregion
 
         private int GetMaxRangeForRandom(int pinLength)
         {

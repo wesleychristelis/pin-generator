@@ -24,6 +24,7 @@ namespace Random.PinGenerator.Service
         #endregion
 
         #region Interface implmentations
+
         public HashSet<string> GetPins(int batchSize, int pinLength)
         {
             // Must not exceed max combinations for the length of the pin
@@ -41,6 +42,7 @@ namespace Random.PinGenerator.Service
 
             throw new ArgumentOutOfRangeException("Batch size exceeds max combinations for pin length");
         } 
+
         #endregion
     }
 }
