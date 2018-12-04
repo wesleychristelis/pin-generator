@@ -15,7 +15,8 @@ namespace RandomPinPoliciesUnitTests
             _pinPolicies = new RandomPinPolicies();
         }
 
-        #region Consecutive sequence checks
+        #region Consecutive sequence tests
+
         [DataTestMethod]
         [DataRow("1135")] // first 2 consecutive
         [DataRow("1228")] // middle 2 consecutive
@@ -44,10 +45,12 @@ namespace RandomPinPoliciesUnitTests
 
             // Assert
             Assert.IsFalse(hasConsecutiveDigits, "Pin has no consecutive values");
-        } 
+        }
+
         #endregion
 
-        #region Incremental sequence checks
+        #region Incremental sequence tests
+
         [DataTestMethod]
         [DataRow("1234")] // all increment
         [DataRow("1235")] // first 3 increment
@@ -80,10 +83,11 @@ namespace RandomPinPoliciesUnitTests
 
             // Assert
             Assert.IsFalse(hasConsecutiveDigits, "Pin has no incremental values");
-        } 
+        }
+
         #endregion
 
-        #region Polcies
+        #region Policies tests
 
         [TestMethod]
         public void ReturnListOfValidationPolicies()

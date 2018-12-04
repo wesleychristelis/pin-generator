@@ -7,6 +7,8 @@ namespace Random.PinGenenrator.Policies
 {
     public class RandomPinPolicies : IRandomPinPolicies
     {
+        #region Interface implmentations
+
         public IList<Func<string, bool>> GetPolicies()
         {
             return new List<Func<string, bool>>
@@ -84,6 +86,8 @@ namespace Random.PinGenenrator.Policies
             }
 
             return false;
-        }
+        } 
+
+        #endregion
     }
 }
