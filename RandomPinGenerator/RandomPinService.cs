@@ -9,31 +9,30 @@ namespace Random.PinGenerator.Service
 {
     public class RandomPinService : IRandomPinService
     {
-        private System.Random _random;
+        private readonly System.Random _random = new System.Random();
         private IPinPolicies _policies;
 
         public RandomPinService()
         {
-            _random = new System.Random();
             _policies = new PinPolicies();
         }
 
         // No DI bootstrapped as yet
         public RandomPinService(IPinPolicies policies)
         {
-            _random = new System.Random();
             _policies = policies;
         }
 
         // We could possible add arrays of func to run against
         public string GeneratePin(int pinLength)
         {
-            //TODO: Customise pin lentgh
-            var pin = _random.Next(0000, 9999).ToString($"D{pinLength}"); // we can make this configurable TODO: Investigate another approach
+            var pin = _random.Next(0, GetMaxRangeForRandom(pinLength)).ToString($"D{pinLength}");
 
             if (_policies.Validate(pin))
             {
-                return GeneratePin(pinLength);
+                // Risk of Recursiveness, the larger the batch size the longer it can take as more unique pins will be present as the set grows, 
+                // as a result we will be recursing more often
+                return GeneratePin(pinLength); 
             }
             else
             {
@@ -51,5 +50,20 @@ namespace Random.PinGenerator.Service
 
             return (int)Math.Pow(10, pinLength);
         }
+
+       private int GetMaxRangeForRandom(int pinLength)
+        {
+            var maxRangeString = new StringBuilder();
+
+            for (int i = 0; i < pinLength; i++)
+            {
+                maxRangeString.Append("9");
+            }
+
+            var maxRange = Convert.ToInt32(maxRangeString.ToString());
+
+            return maxRange;
+        }
+
     }
 }

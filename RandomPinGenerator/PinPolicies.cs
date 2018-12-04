@@ -76,11 +76,18 @@ namespace Random.PinGenerator
             // if we have no policies to assert , then truen true
             if (policies == null || !policies.Any())
             {
-                return true;
+                return false;
             }
 
-            return policies.All(policy => policy(pin));
+            foreach (var policy in policies)
+            {
+                var result = policy.Invoke(pin);
 
+                if (result)
+                    return true;
+            }
+
+            return false;
         }
 
         IList<Func<string, bool>> IPinPolicies.GetPolicies()

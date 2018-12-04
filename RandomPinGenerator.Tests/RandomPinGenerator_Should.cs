@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Random.PinGenerator;
 using Random.PinGenerator.Service;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,29 @@ namespace RandomPinGeneratorUnitTests
             _randomPinGenerator = new RandomPinGenerator();
         }
 
+        // Acceptance test
         [TestMethod]
-        public void ReturnBatchSizeOfPins()
+        public void ReturnBatchSizeOfPinsWithFourDigits()
         {
             // Arrange
             var batchSize = 1000;
             var pinLength = 4;
+
+            // Act
+            var pinHash = _randomPinGenerator.GetPins(batchSize, pinLength);
+
+            // Assert
+            Assert.AreEqual(batchSize, pinHash.Count());
+            Assert.IsInstanceOfType(pinHash, typeof(HashSet<string>));
+        }
+
+        // Acceptance test
+        [TestMethod]
+        public void ReturnBatchSizeOfPinsWithFiveDigits()
+        {
+            // Arrange
+            var batchSize = 10000;
+            var pinLength = 5;
 
             // Act
             var pinHash = _randomPinGenerator.GetPins(batchSize, pinLength);
